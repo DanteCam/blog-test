@@ -1,0 +1,23 @@
+{
+  "name": "blog-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tinymce/tinymce-react": "^3.8.4",
+    "antd": "^4.9.4",
+    "axios": "^0.21.1",
+    "next": "^10.0.4",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-html-parser": "^2.0.2"
+  }
+}

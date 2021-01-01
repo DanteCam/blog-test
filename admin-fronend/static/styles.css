@@ -1,0 +1,40 @@
+#__next{
+    height: inherit;
+    width: inherit;
+}
+/* /Login  */
+.main-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    
+}
+
+/* /Login  */
+
+/* /Dashboard  */
+
+
+
+/* /Dashboard  */
+
+/* Header */
+.site-page-header {
+    border: 1px solid rgb(235, 237, 240);
+    padding-top: 0;
+    
+  }
+.ant-page-header-content{
+    margin-top: 0;
+}
+
+/* Header */
+
+/* PostViewer */
+.PostViewer-container{
+    background-color: magenta;
+    height:max-content;
+}
+
+/* PostViewer */
