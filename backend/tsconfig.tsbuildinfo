@@ -1897,8 +1897,8 @@
         "affectsGlobalScope": false
       },
       "./src/controllers/post.controller.ts": {
-        "version": "f45da0d5cda5741236dee77c05b05c901d30f738bf31598e28f6db2abb657a9e",
-        "signature": "49d656b80b880a234e79a7393673fb01959a4099d44e586c58139dd0dec07bb5",
+        "version": "d14f738f67d36a39b062342472c6833bf661f40fb1e82f93117b0be76c92d721",
+        "signature": "54bca9a165305041b07990ffe7b12724cc027ec7f7d85bba6160ef12f683c2c9",
         "affectsGlobalScope": false
       },
       "./src/controllers/index.ts": {

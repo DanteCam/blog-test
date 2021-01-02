@@ -1,6 +1,5 @@
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import { Input,Typography,Button,Form,message} from 'antd';
-import Link from "next/link";
 import { useRouter } from 'next/router'
 
 const { Title } = Typography;

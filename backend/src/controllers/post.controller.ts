@@ -1,17 +1,11 @@
 import {
   Filter,
-
+  FilterExcludingWhere,
   repository
 } from '@loopback/repository';
 import {
   get,
-  getModelSchemaRef, param, post,
-
-
-
-
-
-
+  getModelSchemaRef, param, post, put,
   requestBody
 } from '@loopback/rest';
 import {Posts} from '../models';
@@ -104,24 +98,24 @@ export class PostController {
   //   return this.postsRepository.updateAll(posts, where);
   // }
 
-  // @get('/posts/{id}', {
-  //   responses: {
-  //     '200': {
-  //       description: 'Posts model instance',
-  //       content: {
-  //         'application/json': {
-  //           schema: getModelSchemaRef(Posts, {includeRelations: true}),
-  //         },
-  //       },
-  //     },
-  //   },
-  // })
-  // async findById(
-  //   @param.path.number('id') id: number,
-  //   @param.filter(Posts, {exclude: 'where'}) filter?: FilterExcludingWhere<Posts>
-  // ): Promise<Posts> {
-  //   return this.postsRepository.findById(id, filter);
-  // }
+  @get('/posts/{id}', {
+    responses: {
+      '200': {
+        description: 'Posts model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Posts, {includeRelations: true}),
+          },
+        },
+      },
+    },
+  })
+  async findById(
+    @param.path.string('id') id: string,
+    @param.filter(Posts, {exclude: 'where'}) filter?: FilterExcludingWhere<Posts>
+  ): Promise<Posts> {
+    return this.postsRepository.findById(id, filter);
+  }
 
   // @patch('/posts/{id}', {
   //   responses: {
@@ -144,19 +138,19 @@ export class PostController {
   //   await this.postsRepository.updateById(id, posts);
   // }
 
-  // @put('/posts/{id}', {
-  //   responses: {
-  //     '204': {
-  //       description: 'Posts PUT success',
-  //     },
-  //   },
-  // })
-  // async replaceById(
-  //   @param.path.number('id') id: number,
-  //   @requestBody() posts: Posts,
-  // ): Promise<void> {
-  //   await this.postsRepository.replaceById(id, posts);
-  // }
+  @put('/posts/{id}', {
+    responses: {
+      '204': {
+        description: 'Posts PUT success',
+      },
+    },
+  })
+  async replaceById(
+    @param.path.string('id') id: string,
+    @requestBody() posts: Posts,
+  ): Promise<void> {
+    await this.postsRepository.replaceById(id, posts);
+  }
 
   // @del('/posts/{id}', {
   //   responses: {

@@ -2,6 +2,7 @@ import { PageHeader,Button,Modal,Form,Input,message} from 'antd';
 import { useState} from "react";
 import { UserOutlined,LockOutlined } from '@ant-design/icons';
 import axios from 'axios';
+import { useRouter } from 'next/router'
 
 
   const loginLayout = {
@@ -19,11 +20,11 @@ import axios from 'axios';
       console.log(e)
     };
 
+    
 const Header=()=> {
-    const [modalView, setModalView] = useState(false);
-    // const [newUserName, setnewUserName] = useState('');
-    // const [newPass, setnewPass] = useState('');
+    const router = useRouter()
 
+    const [modalView, setModalView] = useState(false);
     
     const addNewUser = (newUser) => {
           const newUserSend={"username":newUser.Username,"pass":newUser.Password}
@@ -33,7 +34,7 @@ const Header=()=> {
               NewUserSuccess()
         }).catch (e=>NewUserError(e)
         )
-         setModalView(false)
+        router.reload(window.location.pathname);
       };
 
       const handleCancel = () => {
@@ -45,7 +46,7 @@ const Header=()=> {
             <PageHeader
             className="site-page-header">
                <Button onClick={()=>setModalView(true)} className="add-user-button">Add User</Button>
-                <Modal title={"Enter a new User"} onCancel={handleCancel} visible={modalView} okText="Create" footer={null} o>
+                <Modal title={"Enter a new User"} onCancel={handleCancel} visible={modalView} okText="Create" footer={null} >
 
                         <Form onFinish={addNewUser} layout="vertical" size="middle" > 
                             <Form.Item

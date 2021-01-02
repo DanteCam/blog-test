@@ -36,5 +36,8 @@
     background-color: magenta;
     height:max-content;
 }
+.ant-card-body{
+    padding: 0;
+}
 
 /* PostViewer */

@@ -1,10 +1,12 @@
 import { useState,useEffect } from "react";
-import { Typography, DatePicker, Select, Button, Form, Row, Col, message} from 'antd';
+import {  DatePicker, Select, Button, Form, Row, Col, message} from 'antd';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
+import { useRouter } from 'next/router'
+import Router from 'next/router'
+
 
 const { Option } = Select;
-const { Title } = Typography;
 
 const layout = {
     wrapperCol: {
@@ -14,7 +16,7 @@ const layout = {
     },
 };
 
-
+//Messages Functions
 const NewUserSuccess = () => {
     message.success('Blog entry added correctly');
   };
@@ -25,18 +27,32 @@ const NewUserSuccess = () => {
   };
 
 const PostEditor = (props) => {
-    // Fetched Users
+
+    const router = useRouter()
+
+    // Fetched Users State
     const [users, setUsers] = useState([]);
 
-    // Form data
+    // Fetched Post
+    const [postToEdit,setpostToEdit]=useState({
+        dateTime: '',
+        user: '',
+        post: '',
+        id: ''
+      });
+
+    // Form data State
     const [user, setUser] = useState('');
     const [entry, setEntry] = useState('');
     const [dateTime, setDateTime] = useState('');
 
+    //Set fetched Users
    useEffect(() => {
         setUsers(props.users)
+        setpostToEdit(props.postToEdit)
       },[]);
 
+    //Set Form State 
     const getDateTime = (value,dateString) => {
         setDateTime(dateString)
     }
@@ -48,21 +64,26 @@ const PostEditor = (props) => {
     }
 
     const onFinish = () => {
-        const blog={"dateTime":dateTime, "user":user, "post":entry}
-        axios.post('http://localhost:8000//posts', blog )
-        .then(() => {
-            NewUserSuccess();
-      }).catch (e=>NewUserError(e))
-    }
-    
-    
-    return (
-        <Col span={12}>
-            <Form onFinish={onFinish}>
-                <Form.Item {...layout} >
-                    <Title level={2}>Dashboard</Title>
-                </Form.Item >
+        if(props.editing){
+            const blog={"dateTime":dateTime, "user":user, "post":entry,"id":postToEdit.id}
+            axios.put('http://localhost:8000/posts/'+postToEdit.id,blog )
+            .then(() => {
+                NewUserSuccess();
+            }).catch (e=>NewUserError(e))
+            router.push("/Dashboard");
+        }
+        else{
+            const blog={"dateTime":dateTime, "user":user, "post":entry}
+            axios.post('http://localhost:8000//posts', blog )
+            .then(() => {
+                NewUserSuccess();
+            }).catch (e=>NewUserError(e))
+            Router.reload(window.location.pathname)
 
+        }
+    }
+    return (
+            <Form onFinish={onFinish}>
                 <Row>
 
                     <Col offset={1} span={11}>
@@ -116,17 +137,19 @@ const PostEditor = (props) => {
                             ],
                             toolbar:
                                 'formatselect | bold italic backcolor | \
-                    alignleft aligncenter alignright alignjustify | \
-                    bullist numlist outdent indent | removeformat '
-                        }}
-                        onEditorChange={getEntry} />
+                                alignleft aligncenter alignright alignjustify | \
+                                bullist numlist outdent indent | removeformat '
+                             }}
+                        onEditorChange={getEntry}
+                        value='' 
+                        initialValue={postToEdit.post}/>
                 </Form.Item>
 
                 <Form.Item {...layout} >
                     <Button className="post-button-entry" type="ghost" htmlType="submit">Post</Button>
                 </Form.Item>
             </Form>
-        </Col>
+        
     )
 }
 export default PostEditor
